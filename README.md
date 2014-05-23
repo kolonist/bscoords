@@ -142,6 +142,6 @@ If this lirary is useful for you and want it always stay actual you can:
 - send issues, pull requests
 
 
-@license Feel free to use or modify this lib as long as my @author tag remains in code (but you can add your as well)
-@version 0.0.1
+@license Feel free to use or modify this lib as long as my @author tag remains in code (but you can add your as well)  
+@version 0.0.1  
 @author Alexander Zubakov <developer@xinit.ru>
