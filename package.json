@@ -1,0 +1,41 @@
+{
+    "name"       : "bscoords",
+    "version"    : "0.0.1",
+    "description": "Get location based on (MCC, MNC, LAC, CellID) using Google, Yandex, OpenCellID and Mozilla Location Service",
+    "main"       : "lib/bscoords.js",
+    "scripts": {
+        "test"      : "node test.js",
+        "prepublish": "coffee -cb *.coffee; coffee -cb lib/*.coffee"
+    },
+    "repository": {
+        "type": "git",
+        "url" : "https://github.com/kolonist/bscoords"
+    },
+    "bugs": {
+        "url": "https://github.com/kolonist/bscoords/issues"
+    },
+    "keywords": [
+        "bts",
+        "base station",
+        "opencellid",
+        "mozilla location service",
+        "mozlocation",
+        "location",
+        "google",
+        "yandex",
+        "gsm",
+        "umts",
+        "lte",
+        "geolocation",
+        "coordinate",
+        "latitude",
+        "longitude",
+        "cellid",
+        "lac",
+        "cid",
+        "mcc",
+        "mnc"
+    ],
+    "author" : "Alexander Zubakov <developer@xinit.ru>",
+    "license": "MIT"
+}
