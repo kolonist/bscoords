@@ -124,7 +124,7 @@
   ];
 
   bscoords.init({
-    openCellIDApiKey: '6b71f207-23b2-4252-92c5-457abc1f2d62',
+    openCellIDApiKey: 'insert your own',
     timeout: 5000
   });
 
