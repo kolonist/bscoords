@@ -82,6 +82,7 @@ bscoords.requestYandex(     mcc, mnc, lac, cellid, onResponse);
 bscoords.requestGoogle(     mcc, mnc, lac, cellid, onResponse);
 bscoords.requestOpenCellID( mcc, mnc, lac, cellid, onResponse);
 bscoords.requestMozLocation(mcc, mnc, lac, cellid, onResponse);
+bscoords.requestMylnikov(   mcc, mnc, lac, cellid, onResponse);
 ```
 
 
@@ -138,6 +139,10 @@ following structure:
         lon: 'longitude'
     },
     opencellid: {
+        lat: 'latitude',
+        lon: 'longitude'
+    },
+    mylnikov: {
         lat: 'latitude',
         lon: 'longitude'
     }

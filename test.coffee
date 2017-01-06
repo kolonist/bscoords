@@ -17,6 +17,7 @@ vectors = [
             yandex_cell: { success: yes }
             opencellid : { success: yes }
             mozlocation: { success: yes }
+            mylnikov   : { success: yes }
     }
 
     {
@@ -27,6 +28,7 @@ vectors = [
             yandex_cell: { success: yes }
             opencellid : { success: no  }
             mozlocation: { success: no  }
+            mylnikov   : { success: yes }
     }
 
     {
@@ -37,16 +39,18 @@ vectors = [
             yandex_cell: { success: no  }
             opencellid : { success: no  }
             mozlocation: { success: no  }
+            mylnikov   : { success: yes }
     }
 
     {
         req: { mcc: '250', mnc: '01', lac: '3971', cid: '41254', net: 'gsm' }
         res:
-            google     : { success: no }
-            yandex_bs  : { success: no }
-            yandex_cell: { success: no }
-            opencellid : { success: no }
-            mozlocation: { success: no }
+            google     : { success: no  }
+            yandex_bs  : { success: no  }
+            yandex_cell: { success: no  }
+            opencellid : { success: no  }
+            mozlocation: { success: no  }
+            mylnikov   : { success: yes }
     }
 ]
 
@@ -91,6 +95,7 @@ t = setInterval(
                         Yandex Cell: (#{coords.yandex_cell?.lat}, #{coords.yandex_cell?.lon}); Error: #{err?.yandex?.message     }
                         OpenCellID : (#{coords.opencellid?.lat }, #{coords.opencellid?.lon }); Error: #{err?.opencellid?.message }
                         mozLocation: (#{coords.mozlocation?.lat}, #{coords.mozlocation?.lon}); Error: #{err?.mozlocation?.message}
+                        Mylnikov   : (#{coords.mylnikov?.lat   }, #{coords.mylnikov?.lon   }); Error: #{err?.mylnikov?.message   }
 
                     --------------------------------------------------
 
