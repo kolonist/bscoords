@@ -1,7 +1,7 @@
 # Description
 
 Library to get location from cellural networks information (MCC, MNC, LAC,
-CellID) using Google location services, Yandex location services, OpenCellID and
+CellID) using Google location services, Yandex location services, OpenCellID, Mylnikov Geo and
 Mozilla Location Service.
 
 
