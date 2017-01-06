@@ -1,7 +1,7 @@
 # Description
 
 Library to get location from cellural networks information (MCC, MNC, LAC,
-CellID) using Google location services, Yandex location services, OpenCellID and
+CellID) using Google location services, Yandex location services, OpenCellID, Mylnikov Geo and
 Mozilla Location Service.
 
 
@@ -82,6 +82,7 @@ bscoords.requestYandex(     mcc, mnc, lac, cellid, onResponse);
 bscoords.requestGoogle(     mcc, mnc, lac, cellid, onResponse);
 bscoords.requestOpenCellID( mcc, mnc, lac, cellid, onResponse);
 bscoords.requestMozLocation(mcc, mnc, lac, cellid, onResponse);
+bscoords.requestMylnikov(   mcc, mnc, lac, cellid, onResponse);
 ```
 
 
@@ -138,6 +139,10 @@ following structure:
         lon: 'longitude'
     },
     opencellid: {
+        lat: 'latitude',
+        lon: 'longitude'
+    },
+    mylnikov: {
         lat: 'latitude',
         lon: 'longitude'
     }
