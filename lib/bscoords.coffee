@@ -22,7 +22,7 @@ reOpenCidError = /err\s+info="[^"]+"\s+code="/i
 
 
 # Connection timeout, ms
-connTimeout = 3000
+connTimeout = 5000
 
 
 # OpenCellID API key
@@ -115,6 +115,45 @@ requestYandex = (countrycode, operatorid, lac, cellid, onComplete) ->
 
     req.end()
 
+
+requestMylnikov = (countrycode, operatorid, lac, cellid, onComplete) ->
+#Example:
+#https://api.mylnikov.org/geolocation/cell?v=1.1&data=open&key=imGAr7GPI5017U8tjpRQQs8lb17vtZT7&mcc=250&mnc=2&lac=7840&cellid=200719106
+    options =
+        hostname: "api.mylnikov.org"
+        port    : 443
+        method  : "GET"
+        path    : "/geolocation/cell?v=1.1&data=open&key=imGAr7GPI5017U8tjpRQQs8lb17vtZT7&cellid=#{cellid}&mnc=#{operatorid}&mcc=#{countrycode}&lac=#{lac}"
+
+    req = https.request options, (res) ->
+        res.setEncoding 'utf8'
+
+        # pick data
+        response = ''
+        res.on 'data', (chunk) ->
+            response += chunk
+
+        # all data came
+        res.on 'end', () ->
+            try
+                response = JSON.parse response
+                if response.result? and response.result == 200
+                    onComplete null, {
+                        lat: response.data.lat
+                        lon: response.data.lon
+                    }
+                else
+                    onComplete new Error(E_NOTFOUND), null
+            catch err
+                onComplete new Error(E_REQERROR), null
+
+    req.on 'socket', (socket) ->
+        socket.setTimeout connTimeout, -> req.abort()
+
+    req.on 'error', (err) ->
+        onComplete new Error(E_REQERROR), null
+
+    req.end()
 
 # Get BS geographical coordinates from google.com.
 #
@@ -361,6 +400,16 @@ request = (countrycode, operatorid, lac, cellid, networkType, onComplete) ->
         dataCame++
         emitter.emit 'coords'
 
+    # get coords from MylnikovGeo database
+    requestMylnikov countrycode, operatorid, lac, cellid, (err, coords) ->
+        if err?
+            fullErr ?= {}
+            fullErr.mylnikov = err
+
+        fullCoords.mylnikov = coords
+        dataCame++
+        emitter.emit 'coords'
+
     # get coords from Yandex
     requestYandex countrycode, operatorid, lac, cellid, (err, coords) ->
         if err?
@@ -400,6 +449,7 @@ request = (countrycode, operatorid, lac, cellid, networkType, onComplete) ->
 exports.init               = init
 exports.requestYandex      = requestYandex
 exports.requestGoogle      = requestGoogle
+exports.requestMylnikov    = requestMylnikov
 exports.requestOpenCellID  = requestOpenCellID
 exports.requestMozLocation = requestMozLocation
 exports.request            = request
