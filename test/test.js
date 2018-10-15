@@ -4,8 +4,8 @@ const bs = require('../lib/bscoords');
 
 let mcc    = 250;
 let mnc    = 99;
-let lac    = 13952;
-let cellid = 49983;
+let lac    = 13952454;
+let cellid = 499830000;
 
 const services = [
       'google'
@@ -14,7 +14,7 @@ const services = [
     , 'mylnikov'
     , 'mozilla'
 ];
-/*
+
 for (const service of services) {
     bs[service](mcc, mnc, lac, cellid)
         .then(coords => {
@@ -26,7 +26,7 @@ for (const service of services) {
             console.log(err);
         });
 }
-*/
+
 
 bs
     .all(mcc, mnc, lac, cellid)
