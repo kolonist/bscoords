@@ -1,8 +1,8 @@
 # Description
 
 Library to get location from cellural networks information (MCC, MNC, LAC,
-CellID) using Google location services, Yandex location services, OpenCellID, Mylnikov Geo and
-Mozilla Location Service.
+Cell ID) using Google location services, Yandex location services, OpenCellID,
+Mylnikov Geo and Mozilla Location Service.
 
 
 # Installation
@@ -16,150 +16,119 @@ You can install it with this command:
 
 First require library:
 
-    var bscoords = require('bscoords');
+```JavaScript
+const bscoords = require('bscoords');
+```
 
-If you want to use OpenCellID service or set custom socket timeout, you should
-initialize library:
+If you want to use OpenCellId, Mozilla Location Service or set custom socket
+timeout, you should initialize library before using:
 
 ```JavaScript
 bscoords.init({
-    // API key to use OpenCellID
-    'openCellIDApiKey': 'you should reg on OpenCellID.org to get this',
+    // API keys
+    apikey_mylnikov  : '', // nicely works even without API key
+    apikey_opencellid: 'you should reg on https://opencellid.org/ to get this',
+    apikey_mozilla   : 'you should request it at Mozilla',
 
-    // socket timeout in milliseconds
-    'timeout': 1000
+    // socket timeout in milliseconds (default is 3000)
+    'timeout': 3000
 });
 ```
 
 
-Then you should define callback function to get response:
+Then perform requests the following way:
 
 ```JavaScript
-/**
- * Function to asynchronously run when data came.
- *
- * @param object err Error if something went wrong or null if request was
- *                   successfull.
- * @param object coords Key-value object with coordinates of requested cell.
- *                      If this is not yandex then it will be like this:
- *                      {
- *                          lat: '00.000000', // latitude
- *                          lon: '00.000000'  // longitude
- *                      }
- *                      In case of yandex, answer will be a bit different:
- *                      {
- *                          cell: {
- *                              lat: '00.000000', // latitude
- *                              lon: '00.000000'  // longitude
- *                          },
- *                          bs: {
- *                              lat: '00.000000', // latitude
- *                              lon: '00.000000'  // longitude
- *                          }
- *                      }
- */
-var onResponse = function(err, coords) {
-    if (err == null) {
+bs
+    .yandex(mcc, mnc, lac, cellid)
+    .then(coords => {
+        console.log(JSON.stringify(coords, null, 4));
+    })
+    .catch(err => console.log(err));
 
-        // yandex request
-        if (typeof coords.cell != 'undefined') {
-            console.log('Cell: { lat: ' + coords.cell.lat + ', lon: ' + coords.cell.lon + ' }');
-            console.log( 'BTS: { lat: ' + coords.bs.lat   + ', lon: ' + coords.bs.lon   + ' }');
+bs
+    .google(mcc, mnc, lac, cellid)
+    .then(coords => {
+        console.log(JSON.stringify(coords, null, 4));
+    })
+    .catch(err => console.log(err));
 
-        // everything but not yandex
-        } else {
-            console.log('Resp: { lat: ' + coords.lat + ', lon: ' + coords.lon + ' }');
-        }
-    }
-}
-```
+bs
+    .opencellid(mcc, mnc, lac, cellid)
+    .then(coords => {
+        console.log(JSON.stringify(coords, null, 4));
+    })
+    .catch(err => console.log(err));
 
-And then perform request the following way:
+bs
+    .mylnikov(mcc, mnc, lac, cellid)
+    .then(coords => {
+        console.log(JSON.stringify(coords, null, 4));
+    })
+    .catch(err => console.log(err));
 
-```JavaScript
-// perform request
-bscoords.requestYandex(     mcc, mnc, lac, cellid, onResponse);
-bscoords.requestGoogle(     mcc, mnc, lac, cellid, onResponse);
-bscoords.requestOpenCellID( mcc, mnc, lac, cellid, onResponse);
-bscoords.requestMozLocation(mcc, mnc, lac, cellid, onResponse);
-bscoords.requestMylnikov(   mcc, mnc, lac, cellid, onResponse);
-```
+bs
+    .mozilla(mcc, mnc, lac, cellid)
+    .then(coords => {
+        console.log(JSON.stringify(coords, null, 4));
+    })
+    .catch(err => console.log(err));
 
-
-For Mozilla location sevice you should also use networkType parameter:
-
-```JavaScript
-// netType can be one of 'gsm', 'cdma', 'umts' or 'lte'. If not set then
-// 'gsm' used.
-bscoords.requestMozLocation(mcc, mnc, lac, cellid, netType, onResponse);
+// result of every call will be like this:
+// {
+//     "lat": 54.54321,
+//     "lon": 23.12345
+// }
 ```
 
 
 You can also use one request to get coordinates from all services at once:
 
 ```JavaScript
-bscoords.request(mcc, mnc, lac, cellid, onResponse);
+bs
+    .all(mcc, mnc, lac, cellid)
+    .then(coords => {
+        console.log(`All:`);
+        console.log(JSON.stringify(coords, null, 4));
+    })
+    .catch(err => {
+        console.log(`All ERROR:`);
+        console.log(err);
+    });
 ```
 
 
-or
-
-```JavaScript
-bscoords.request(mcc, mnc, lac, cellid, netType, onResponse);
-```
-
-
-`netType` applies only to Mozilla Location Service. If `netType` is not set then
-`'gsm'` is used.
-
-The second parameter of onResponse callback function will be object with the
-following structure:
+Result will be object with the following structure:
 
 ```JavaScript
 {
-    google: {
-        lat: 'latitude',
-        lon: 'longitude'
+    "yandex": {
+        "lat": 54.54321,
+        "lon": 23.12345
+    },
+    "google": {
+        "lat": 54.54321,
+        "lon": 23.12345
+    },
+    "mylnikov": {
+        "lat": 54.54321,
+        "lon": 23.12345
+    },
+    "opencellid": null, // no coordinates got from this service
+    "mozilla": {
+        "lat": 54.54321,
+        "lon": 23.12345
     },
 
-    // BTS coordinates
-    yandex_bs: {
-        lat: 'latitude',
-        lon: 'longitude'
-    },
-
-    // coordinates of observer with requested LAC and CID
-    yandex_cell: {
-        lat: 'latitude',
-        lon: 'longitude'
-    },
-
-    mozlocation: {
-        lat: 'latitude',
-        lon: 'longitude'
-    },
-    opencellid: {
-        lat: 'latitude',
-        lon: 'longitude'
-    },
-    mylnikov: {
-        lat: 'latitude',
-        lon: 'longitude'
+    // average coordinates from all services
+    "average": {
+        "lat": 54.54321,
+        "lon": 23.12345
     }
 }
 ```
 
 
-You can also try well commented example in CoffeeScript `test.coffee` or just
-look at `lib/bscoords.coffee` where all function parameters well documented.
-
-
-If this lirary is useful for you and want it always stay actual you can:
-- donate (more info: http://xinit.ru/donate/)
-- comment, share, spread this library
-- send issues, pull requests
-
-
-@license MIT  
-@version 0.0.1  
+@license MIT
+@version 2.0.1
 @author Alexander Zubakov <developer@xinit.ru>
