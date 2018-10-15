@@ -1,8 +1,13 @@
 # Description
 
-Library to get location from cellural networks information (MCC, MNC, LAC,
-Cell ID) using Google location services, Yandex location services, OpenCellID,
-Mylnikov Geo and Mozilla Location Service.
+Library to get location from mobile networks information (MCC, MNC, LAC,
+Cell ID) using Google, Yandex, OpenCellId, Mylnikov and Mozilla Location
+Services.
+
+In this new version library was completely rewritten in pure JavaScript with
+Promises and no external dependencies.
+
+All services now work fine, but for some of them you need API keys.
 
 
 # Installation
