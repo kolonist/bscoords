@@ -129,6 +129,6 @@ Result will be object with the following structure:
 ```
 
 
-@license MIT
-@version 2.0.1
+@license MIT \
+@version 2.0.1 \
 @author Alexander Zubakov <developer@xinit.ru>
