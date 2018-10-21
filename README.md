@@ -150,5 +150,5 @@ Result will be object with the following structure:
 
 
 @license MIT \
-@version 2.0.3 \
+@version 2.0.4 \
 @author Alexander Zubakov <developer@xinit.ru>
