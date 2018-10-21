@@ -32,7 +32,7 @@ timeout, you should initialize library before using:
 bscoords.init({
     // API keys
     apikey_mylnikov  : '', // nicely works even without API key
-    apikey_opencellid: 'you should reg on https://opencellid.org/ to get this',
+    apikey_opencellid: 'you should sign up on https://opencellid.org/ to get this',
     apikey_mozilla   : 'you should request it at Mozilla',
 
     // socket timeout in milliseconds (default is 3000)
@@ -103,10 +103,31 @@ bs
 ```
 
 
+Or you can explicitly choose services to get coordinates from:
+
+```JavaScript
+bs
+    .all(mcc, mnc, lac, cellid, ['yandex', 'google', 'mylnikov', 'opencellid', 'mozilla'])
+    .then(coords => {
+        console.log(`All:`);
+        console.log(JSON.stringify(coords, null, 4));
+    })
+    .catch(err => {
+        console.log(`All ERROR:`);
+        console.log(err);
+    });
+```
+
+
 Result will be object with the following structure:
 
 ```JavaScript
 {
+    // average coordinates from all services
+    "average": {
+        "lat": 54.54321,
+        "lon": 23.12345
+    },
     "yandex": {
         "lat": 54.54321,
         "lon": 23.12345
@@ -123,17 +144,11 @@ Result will be object with the following structure:
     "mozilla": {
         "lat": 54.54321,
         "lon": 23.12345
-    },
-
-    // average coordinates from all services
-    "average": {
-        "lat": 54.54321,
-        "lon": 23.12345
     }
 }
 ```
 
 
 @license MIT \
-@version 2.0.1 \
+@version 2.0.3 \
 @author Alexander Zubakov <developer@xinit.ru>

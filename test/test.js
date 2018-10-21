@@ -2,10 +2,10 @@
 
 const bs = require('../lib/bscoords');
 
-let mcc    = 250;
-let mnc    = 99;
-let lac    = 13952454;
-let cellid = 499830000;
+let mcc    = 257;
+let mnc    = 1;
+let lac    = 114;
+let cellid = 1384;
 
 const services = [
       'google'
@@ -29,7 +29,7 @@ for (const service of services) {
 
 
 bs
-    .all(mcc, mnc, lac, cellid)
+    .all(mcc, mnc, lac, cellid, ['yandex', 'mylnikov', 'google', 'opencellid', 'mozilla'])
     .then(coords => {
         console.log(`All:`);
         console.log(JSON.stringify(coords, null, 4));
@@ -38,4 +38,3 @@ bs
         console.log(`All ERROR:`);
         console.log(err);
     });
-
