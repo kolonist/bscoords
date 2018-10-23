@@ -2,10 +2,20 @@
 
 const bs = require('../lib/bscoords');
 
-let mcc    = 257;
-let mnc    = 1;
-let lac    = 114;
-let cellid = 1384;
+const test_vector = [
+    {
+        mcc   : 257,
+        mnc   : 1,
+        lac   : 114,
+        cellid: 1384
+    },
+    {
+        mcc   : 372,
+        mnc   : 1,
+        lac   : 2300,
+        cellid: 33250
+    },
+];
 
 const services = [
       'google'
@@ -16,18 +26,20 @@ const services = [
 ];
 
 for (const service of services) {
-    bs[service](mcc, mnc, lac, cellid)
-        .then(coords => {
-            console.log(`${service}:`);
-            console.log(JSON.stringify(coords, null, 4));
-        })
-        .catch(err => {
-            console.log(`${service} ERROR:`);
-            console.log(err);
-        });
+    for (const {mcc, mnc, lac, cellid} of test_vector) {
+        bs[service](mcc, mnc, lac, cellid)
+            .then(coords => {
+                console.log(`${service}:`);
+                console.log(JSON.stringify(coords, null, 4));
+            })
+            .catch(err => {
+                console.log(`${service} ERROR:`);
+                console.log(err);
+            });
+    }
 }
 
-
+/*
 bs
     .all(mcc, mnc, lac, cellid, ['yandex', 'mylnikov', 'google', 'opencellid', 'mozilla'])
     .then(coords => {
@@ -38,3 +50,4 @@ bs
         console.log(`All ERROR:`);
         console.log(err);
     });
+*/
