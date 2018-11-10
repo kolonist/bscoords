@@ -25,6 +25,7 @@ const services = [
     , 'mozilla'
 ];
 
+/*
 for (const service of services) {
     for (const {mcc, mnc, lac, cellid} of test_vector) {
         bs[service](mcc, mnc, lac, cellid)
@@ -38,10 +39,12 @@ for (const service of services) {
             });
     }
 }
+*/
 
-/*
 bs
-    .all(mcc, mnc, lac, cellid, ['yandex', 'mylnikov', 'google', 'opencellid', 'mozilla'])
+    .all(test_vector[0].mcc, test_vector[0].mnc, test_vector[0].lac, test_vector[0].cellid,
+            ['yandex', 'mylnikov', 'google', 'opencellid', 'mozilla'],
+            {yandex: 100, google: 100, mylnikov: 0, opencellid: 0, mozilla: 0})
     .then(coords => {
         console.log(`All:`);
         console.log(JSON.stringify(coords, null, 4));
@@ -50,4 +53,4 @@ bs
         console.log(`All ERROR:`);
         console.log(err);
     });
-*/
+

@@ -118,6 +118,28 @@ bs
     });
 ```
 
+You can also specify weight of every service to calculate average coordinates
+with respect of services accuracy.
+
+In this example **Yandex** and **Google** are the most significant services in
+average coordinates calculation, **Mylnikov.org** is the least significant and
+**Mozilla Location Service** doesn't affects average coordinates at all:
+
+```JavaScript
+bs
+    .all(mcc, mnc, lac, cellid,
+            ['yandex', 'google', 'mylnikov', 'opencellid', 'mozilla'],
+            {yandex: 1, google: 1, mylnikov: 0.2, opencellid: 0.5, mozilla: 0})
+    .then(coords => {
+        console.log(`All:`);
+        console.log(JSON.stringify(coords, null, 4));
+    })
+    .catch(err => {
+        console.log(`All ERROR:`);
+        console.log(err);
+    });
+```
+
 
 Result will be object with the following structure:
 
