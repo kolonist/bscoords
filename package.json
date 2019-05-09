@@ -1,6 +1,6 @@
 {
     "name": "bscoords",
-    "version": "2.0.8",
+    "version": "2.0.9",
     "description": "Get location based on (MCC, MNC, LAC, CellID) using Google, Yandex, OpenCellID, Mylnikov Geo and Mozilla Location Service",
     "author": "Alexander Russkiy <developer@xinit.ru>",
     "license": "MIT",
