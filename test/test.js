@@ -41,10 +41,12 @@ for (const service of services) {
 }
 */
 
+bs.init(require('./apikeys.json'));
+
 bs
     .all(test_vector[0].mcc, test_vector[0].mnc, test_vector[0].lac, test_vector[0].cellid,
             ['yandex', 'mylnikov', 'google', 'opencellid', 'mozilla'],
-            {yandex: 100, google: 100, mylnikov: 0, opencellid: 0, mozilla: 0})
+            {yandex: 100, google: 100, mylnikov: 100, opencellid: 100, mozilla: 0})
     .then(coords => {
         console.log(`All:`);
         console.log(JSON.stringify(coords, null, 4));
