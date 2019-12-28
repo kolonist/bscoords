@@ -79,6 +79,13 @@ bs
     })
     .catch(err => console.log(err));
 
+bs
+    .cell2gps(mcc, mnc, lac, cellid)
+    .then(coords => {
+        console.log(JSON.stringify(coords, null, 4));
+    })
+    .catch(err => console.log(err));
+
 // result of every call will be like this:
 // {
 //     "lat": 54.54321,
@@ -107,7 +114,7 @@ Or you can explicitly choose services to get coordinates from:
 
 ```JavaScript
 bs
-    .all(mcc, mnc, lac, cellid, ['yandex', 'google', 'mylnikov', 'opencellid', 'mozilla'])
+    .all(mcc, mnc, lac, cellid, ['yandex', 'google', 'mylnikov', 'opencellid', 'mozilla', 'cell2gps'])
     .then(coords => {
         console.log(`All:`);
         console.log(JSON.stringify(coords, null, 4));
@@ -128,8 +135,8 @@ average coordinates calculation, **Mylnikov.org** is the least significant and
 ```JavaScript
 bs
     .all(mcc, mnc, lac, cellid,
-            ['yandex', 'google', 'mylnikov', 'opencellid', 'mozilla'],
-            {yandex: 1, google: 1, mylnikov: 0.2, opencellid: 0.5, mozilla: 0})
+            ['yandex', 'google', 'mylnikov', 'opencellid', 'mozilla', 'cell2gps'],
+            {yandex: 1, google: 1, mylnikov: 0.2, opencellid: 0.5, mozilla: 0, cell2gps: 1})
     .then(coords => {
         console.log(`All:`);
         console.log(JSON.stringify(coords, null, 4));
@@ -166,11 +173,15 @@ Result will be object with the following structure:
     "mozilla": {
         "lat": 54.54321,
         "lon": 23.12345
+    },
+    "cell2gps": {
+        "lat": 54.54321,
+        "lon": 23.12345
     }
 }
 ```
 
 
 @license MIT \
-@version 2.0.9 \
+@version 2.1.0 \
 @author Alexander Russkiy <developer@xinit.ru>

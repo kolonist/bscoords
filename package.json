@@ -1,7 +1,7 @@
 {
     "name": "bscoords",
-    "version": "2.0.9",
-    "description": "Get location based on (MCC, MNC, LAC, CellID) using Google, Yandex, OpenCellID, Mylnikov Geo and Mozilla Location Service",
+    "version": "2.1.0",
+    "description": "Get location based on (MCC, MNC, LAC, CellID) using Google, Yandex, OpenCellID, cell2gps, Mylnikov Geo and Mozilla Location Service",
     "author": "Alexander Russkiy <developer@xinit.ru>",
     "license": "MIT",
     "keywords": [
@@ -11,6 +11,7 @@
         "mozilla location service",
         "mylnikov",
         "mozlocation",
+        "cepp2gps",
         "location",
         "google",
         "yandex",
@@ -39,7 +40,7 @@
         "url": "https://github.com/kolonist/bscoords/issues"
     },
     "devDependencies": {
-        "eslint": "latest",
-        "eslint-config-google": "latest"
+        "eslint": "^6.8.0",
+        "eslint-config-google": "^0.14.0"
     }
 }
