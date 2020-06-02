@@ -215,6 +215,6 @@ declare module "bscoords" {
         mylnikov,
         opencellid,
         mozilla,
-        requestAll
+        requestAll as all
     }
 }
