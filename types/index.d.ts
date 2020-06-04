@@ -209,6 +209,8 @@ declare module "bscoords" {
         init,
         InitOptions,
         LocationData,
+        LocationDataOrNull,
+        AllLocationData,
         yandex,
         google,
         cell2gps,
