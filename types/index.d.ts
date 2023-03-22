@@ -201,8 +201,8 @@ declare module "bscoords" {
     *                   }.
     */
     function requestAll(countrycode: number, operatorid: number, lac: number, cellid: number,
-        services: Array<string>,
-        weights: ServiceWeights
+        services?: Array<string>,
+        weights?: ServiceWeights
     ): Promise<AllLocationData>;
 
     export {
